@@ -17,6 +17,7 @@ public class TutorialPointCheckBoxTest {
         //driver = new FirefoxDriver();
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
+
     }
 
     @Test
