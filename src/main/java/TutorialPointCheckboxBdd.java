@@ -43,4 +43,7 @@ public class TutorialPointCheckboxBdd {
     public void checkboxJeZaskrtnut(String idCheckbox) {
         assertTrue(driver.findElement(By.id(idCheckbox)).isSelected());
     }
+
+
+
 }
