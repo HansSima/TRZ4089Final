@@ -1,6 +1,7 @@
 package org.example;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -21,15 +22,31 @@ public class TutorialPointCheckBoxTest {
         driver = new ChromeDriver();
     }
 
+    @AfterEach
+    public void cleanUp(){
+        driver.quit();
+    }
+
+
     @Test
     public void test(){
-        //Prepne se na pozadovanou stranku
+        //Zaškrtnutie oboch boxov a potvrdiť, ze je hlavný zaškrtnutý
         driver.get("https://www.tutorialspoint.com/selenium/practice/check-box.php");
-        //Najde prvkek a klikne na nej
-        driver.findElement(By.id("c_bs_1")).click();
-        //assertEquals();
-        //Kontroluje zda je prvek zaskrtnut
+        driver.findElement(By.xpath("//*[@id=\"bs_1\"]/span[1]")).click();
+        driver.findElement(By.id("c_bf_1")).click();
+        driver.findElement(By.id("c_bf_2")).click();
         assertTrue(driver.findElement(By.id("c_bs_1")).isSelected());
+
+        // odškrtnútie jedného, potvrdiť, ze hlavný nie je zaškrtnutý...zaškrtnúť prvný a odškrtnúť druhý a potvrdiť, že hlavný, nie je zaškrtnutý
+        driver.findElement(By.id("c_bf_1")).click();
+        assertFalse(driver.findElement(By.id("c_bs_1")).isSelected());
+        driver.findElement(By.id("c_bf_1")).click();
+        driver.findElement(By.id("c_bf_2")).click();
+        assertFalse(driver.findElement(By.id("c_bs_1")).isSelected());
+
+        //oba checkboxy sú odškrtnuté a hlavný nie je zaškrtuný
+        driver.findElement(By.id("c_bf_1")).click();
+        assertFalse(driver.findElement(By.id("c_bs_1")).isSelected());
     }
 
 }
